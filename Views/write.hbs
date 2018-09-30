@@ -1,0 +1,95 @@
+{{>scripts}}
+
+<style = "text/css">
+  .jumbotron {
+    background-image: url("/Pictures/write-blog.jpg");
+    height: 300px;
+  }
+  h1{
+    margin-top: 190px;
+    margin-left: 30px;
+    font-style: bold;
+  }
+  .form-horizontal {
+    margin-top: 50px;
+    margin-left: 180px;
+    margin-right: 30px;
+  }
+  .form-horizontal .btn {
+      /*margin-left: 850px;*/
+      width: 325px;
+      background-color: saddlebrown;
+      color: white;
+      font-weight: bold;
+      margin-left: 450px;
+    }
+ .form-horizontal .show {
+   color: red;
+   margin-left: 10px;
+ }
+.alert{
+  margin-top: -495px;
+  margin-left: 190px;
+  margin-right: 30px;
+}
+</style>
+
+<script>
+
+var app = angular.module('writeapp',[]);
+app.controller('writectrl', function($scope) {
+  $scope.category = '';
+  $scope.subject = '';
+  $scope.blog = '';
+});
+
+</script>
+
+{{>nav}}
+  <div class = "jumbotron text-center">
+    <h1> Write Your Own Blog <h1>
+  </div>
+  <form class = "form-horizontal" name = "writeblog" action = "/write" method = "post"
+  ng-app = "writeapp"
+  ng-controller = "writectrl" novalidate>
+    <div class = "form-group">
+      <label class = "control-label"  for = "authname">Author name</label>
+      <input type = "text" class = "form-control" name = "authname" id = "authname" value = "{{user_name}}">
+</div>
+<div class = "form-group">
+<label class = "control-label"  for = "category">Category</label>
+<input type = "text" class = "form-control" name = "category" id = "category" ng-model = "category" required>
+<span ng-show = "writeblog.category.$dirty" class = "show">
+  <span ng-show = "writeblog.category.$error.required">Category is required</span>
+</span>
+</div>
+<div class = "form-group">
+<label class = "control-label" for = "subject">Subject</label>
+<textarea class = "form-control" rows = "2" id = "subject" name = "subject" ng-model = "subject" required></textarea>
+<span ng-show = "writeblog.subject.$dirty" class = "show">
+  <span ng-show = "writeblog.subject.$error.required">Subject is required</span>
+</span>
+</div>
+<div class = "form-group">
+  <label class = "control-label" for = "blog">Your Blog</label>
+    <textarea class = "form-control" rows = "2" name = "blog" id = "blog" ng-model = "blog" required></textarea>
+    <span ng-show = "writeblog.blog.$dirty" class = "show">
+      <span ng-show = "writeblog.blog.$error.required">Subject is required</span>
+    </span>
+  </div>
+  <div class = "form-group">
+    <input type = "submit" class = "btn" value = "Submit Your Blog">
+</div>
+</form>
+{{#if writemsg}}
+<div class="alert alert-success">
+{{writemsg}}
+<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+</div>
+{{/if}}
+{{#if writeerr}}
+<div class="alert alert-success">
+{{msg}}
+<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+</div>
+{{/if}}

@@ -1,0 +1,64 @@
+{{>scripts}}
+
+<style>
+.jumbotron{
+  background-image: url("/Pictures/read-blog.jpg");
+  background-size: 1450px 400px;
+  height: 300px;
+}
+
+.container{
+  margin-top: 50px;
+  margin-left: 150px;
+  margin-right: 30px;
+}
+.container .btn
+{
+  margin-left: 35px;
+  background-color: saddlebrown
+}
+.collapse {
+  margin-left: 35px;
+}
+h8{
+color: black;
+}
+label{
+  font-size: 17px;
+  font-weight: bold;
+}
+</style>
+
+{{>nav}}
+
+<div class = "jumbotron">
+</div>
+<div class = "container">
+{{#each items}}
+<script>
+$(document).ready(function(){
+  $("#{{this._id}}").on("hide.bs.collapse", function(){
+    $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Open');
+  });
+  $("#{{this._id}}").on("show.bs.collapse", function(){
+    $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Close');
+  });
+});
+</script>
+
+  <label><h8>Author Name: </label>{{this.name}}</h8><br>
+    <label><h8>Category: </label>{{this.category}}</h8><br>
+      <label><h8>subject: </label>
+         {{this.subject}}</h8>
+        <br>
+        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#{{this._id}}">
+      <span class="glyphicon glyphicon-collapse-down"></span> Open
+    </button>
+    <br><br>
+  <div id = {{this._id}} class ="collapse out ">
+  {{this.blog}}
+  <hr>
+  <br>
+  </div>
+  {{/each}}
+<br>

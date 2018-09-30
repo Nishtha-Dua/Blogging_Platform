@@ -1,0 +1,170 @@
+{{>scripts}}
+<style type = "text/css">
+body {
+  background-image : url("/Pictures/blogwall1.jpg");
+  background-repeat: no-repeat;
+  background-size: 1500px 900px;
+}
+.lsform {
+  border : 10px solid black;
+  box-sizing: border-box;
+  padding : 25px;
+  margin-left: 1000px;
+  margin-right: 30px;
+  margin-top: 170px;
+}
+
+.form-group {
+  color: black;
+  font-weight: bold;
+}
+
+.form-horizontal .btn {
+    /*margin-left: 850px;*/
+    width: 325px;
+    background-color: saddlebrown;
+    color: white;
+    font-weight: bold;
+  }
+  .form-group .control-label {
+    color: saddlebrown
+    font-weight: bold;
+  }
+
+  .show {
+    color: red;
+  }
+  .message {
+    color: green;
+    border : 10px solid green;
+  }
+  .alert {
+    margin-top: -470px;
+    margin-left: 1000px;
+    margin-right: 30px;
+  }
+
+  .alert .close
+  {
+    margin-top: -5px;
+  }
+
+
+</style>
+
+<script>
+            var root = angular.module('rootapp',['firstapp']);
+
+            var val = document.getElementById("sign");
+            var val1 = document.getElementById("log");
+
+            var loginapp  = angular.module('firstapp', []);
+            loginapp.controller('firstctrl',function($scope){
+                                $scope.email = '';
+                                $scope.pass = '';
+                                $scope.user = '';
+                                $scope.loginshow = true;
+                                $scope.signup = function() {
+                                if (val = "sign")
+                                {
+                                $scope.signupshow = true;
+                                $scope.loginshow = false;
+                                }
+                                else
+                                {
+                                $scope.loginshow = true;
+                                }
+                                }
+                                $scope.login = function() {
+                                if (val1 = "log")
+                                {
+                                $scope.signupshow = false;
+                                $scope.loginshow = true;
+                                }
+                                else
+                                {
+                                $scope.loginshow = true;
+                                }
+                                }
+                            });
+                                </script>
+
+<body ng-app = "rootapp" ng-controller = "firstctrl">
+  <div ng-show = "loginshow" class = "lsform">
+      <form class = "form-horizontal" name="myForm"  method = "post" action = "/login" novalidate>
+          <div class = "form-group">
+              <label class = "control-label" for = "inputemail"> Email</label>
+              <input class = "form-control" type="email" name="email" ng-model="email" required>
+                  <span ng-show="myForm.email.$dirty && myForm.email.$invalid" class = "show">
+                      <span ng-show="myForm.email.$error.required">Email is required.</span>
+                      <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+                  </span>
+                  </div>
+
+          <div class = "form-group">
+              <label class = "control-label" for = "inputpass">Password</label>
+              <input class = "form-control" type="password" name="pass" ng-model="pass" required>
+                  <span ng-show="myForm.pass.$dirty && myForm.pass.$invalid" class = "show">
+                      <span ng-show="myForm.pass.$error.required" style = "color:red">Password is required.</span>
+                  </span>
+                  </div>
+          <div class = "form-group">
+              <div class = "form-group-rec">
+                  <label> Forgot Your password?<a href = "#"> Recover here</a></label>
+              </div>
+          </div>
+
+          <div class = "form-group">
+              <input type="submit" class ="btn"
+                  ng-disabled="myForm.pass.$dirty && myForm.pass.$invalid ||
+                  myForm.email.$dirty && myForm.email.$invalid">
+                  </div>
+          <div class = "form-group">
+              <div class = "form-join">
+                  <label class ="control-label" for = "joining">Not a subscriber yet ?<a href ="" ng-click = "signup()" id = "sign">  Join now</a></label>
+              </div>
+          </div>
+      </form>
+      </div>
+
+      <div ng-show = "signupshow" class = "lsform">
+          <form class = "form-horizontal" name = "myform" method = "post" action = "/insert" id = "myform" novalidate>
+              <div class = "form-group">
+                  <label class = "control-label" for = "inputuser"> Enter your name: </label>
+                  <input type = "text" name = "user"  ng-model = "user" class = "form-control" required>
+                      <span ng-show = "myform.user.$dirty" class = "show">
+                          <span ng-show = "myform.user.$error.required"> Username is required </span>
+                      </span>
+                      </div>
+              <div class = "form-group">
+                  <label class = "control-label" for = "inputemail"> Enter your email: </label>
+                  <input type = "email" class = "form-control" name = "email" ng-model = "email" required>
+                      <span ng-show="myform.email.$dirty && myform.email.$invalid" class = "show">
+                          <span ng-show="myform.email.$error.required">Email is required.</span>
+                          <span ng-show="myform.email.$error.email">Invalid email address.</span>
+                      </span>
+                      </div>
+              <div class = "form-group">
+                  <label class = "control-label" for = "inputpass"> Enter password: </label>
+                  <input type = "password" class = "form-control" name = "pass" ng-model = "pass" required>
+                      <span ng-show = "myform.pass.$dirty" class = "show">
+                          <span ng-show = "myform.pass.$error.required">password is required</span>
+                      </span>
+                      </div>
+              <div class = "form-group">
+                  <input type="submit" class="btn" value = "Sign Up" id = "reg" >
+                    </div>
+              <div class = "form-group">
+                  <div class = "form-login">
+                      <label class ="control-label" for = "login">Already have an account?<a href ="" ng-click = "login()" id = "log"> Login now</a></label>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+{{#if msg}}
+<div class="alert alert-success">
+{{msg}}
+<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+{{/if}}
+  </body>
