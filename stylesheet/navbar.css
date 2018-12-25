@@ -1,0 +1,19 @@
+
+.navbar{
+ overflow: hidden;
+ position: fixed;
+ top: 0;
+ width:100%;
+ border-color:transparent;
+ background-color: black;
+    }
+
+.navbar-text {
+    color: white;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.nav-link{
+    color: white;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
